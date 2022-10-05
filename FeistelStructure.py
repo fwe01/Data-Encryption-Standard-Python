@@ -34,11 +34,7 @@ class FeistelStructure:
         left_block = bin_data_block[:32]
         right_block = bin_data_block[32:]
 
-        for round in range(16):
-            left_block, right_block = round_compute_unit.compute(left_block, right_block, round_keys[round])
-            # round terakhir tidak di swap
-            if round != 15:
-                left_block, right_block = right_block, left_block
+        left_block, right_block = round_compute_unit.compute(left_block, right_block, round_keys)
 
         round_result = left_block + right_block
         round_result = Utility.permute(round_result, FeistelStructure.FINAL_PERMUTATION_TABLE)
