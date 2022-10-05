@@ -2,7 +2,7 @@ from FBox import FBox
 from Utility import Utility
 
 
-class RoundComputeUnit:
+class RoundsComputeUnit:
     def __init__(self):
         self.f_box = FBox()
 

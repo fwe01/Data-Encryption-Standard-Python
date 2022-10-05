@@ -1,4 +1,4 @@
-from RoundComputeUnit import RoundComputeUnit
+from RoundsComputeUnit import RoundsComputeUnit
 from Utility import Utility
 
 
@@ -27,14 +27,14 @@ class FeistelStructure:
 
     @staticmethod
     def compute(bin_data_block, round_keys):
-        round_compute_unit = RoundComputeUnit()
+        rounds_compute_unit = RoundsComputeUnit()
 
         bin_data_block = Utility.permute(bin_data_block, FeistelStructure.INITIAL_PERMUTATION_TABLE)
 
         left_block = bin_data_block[:32]
         right_block = bin_data_block[32:]
 
-        left_block, right_block = round_compute_unit.compute(left_block, right_block, round_keys)
+        left_block, right_block = rounds_compute_unit.compute(left_block, right_block, round_keys)
 
         round_result = left_block + right_block
         round_result = Utility.permute(round_result, FeistelStructure.FINAL_PERMUTATION_TABLE)
