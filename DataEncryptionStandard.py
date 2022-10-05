@@ -29,7 +29,7 @@ class DataEncryptionStandard:
     ]
 
     @staticmethod
-    def encrypt(plain_data, hex_key):
+    def encrypt_hex(plain_data, hex_key):
         key = DESKey(hex_key)
         round_keys = key.compute_round_keys()
 
@@ -37,42 +37,83 @@ class DataEncryptionStandard:
         padding = math.ceil(len(plain_data) / 16) * 16
         plain_data = plain_data.ljust(padding, "0")
 
-        encrypted_result = DataEncryptionStandard.run_pipeline(plain_data, round_keys)
+        encrypted_result = DataEncryptionStandard.run_hex_pipeline(plain_data, round_keys)
 
         return encrypted_result
 
     @staticmethod
-    def decrypt(encrypted_data, hex_key):
+    def decrypt_hex(encrypted_data, hex_key):
         key = DESKey(hex_key)
         round_keys = key.compute_round_keys()
         round_keys = round_keys[::-1]
 
-        decrypted_result = DataEncryptionStandard.run_pipeline(encrypted_data, round_keys)
+        decrypted_result = DataEncryptionStandard.run_hex_pipeline(encrypted_data, round_keys)
 
         return decrypted_result
 
     @staticmethod
-    def run_pipeline(data, round_keys):
-        encrypted_result = ""
+    def encrypt_str(plain_data, hex_key):
+        key = DESKey(hex_key)
+        round_keys = key.compute_round_keys()
+
+        # di padding agar selalu kelipatan 8
+        padding = math.ceil(len(plain_data) / 8) * 8
+        plain_data = plain_data.ljust(padding, "0")
+
+        encrypted_result = DataEncryptionStandard.run_str_pipeline(plain_data, round_keys)
+
+        return encrypted_result
+
+    @staticmethod
+    def decrypt_str(encrypted_data, hex_key):
+        key = DESKey(hex_key)
+        round_keys = key.compute_round_keys()
+        round_keys = round_keys[::-1]
+
+        decrypted_result = DataEncryptionStandard.run_str_pipeline(encrypted_data, round_keys)
+
+        return decrypted_result
+
+    @staticmethod
+    def run_str_pipeline(data, round_keys):
+        result = ""
+        round_compute_unit = DESRound()
+        for block in range(0, len(data), 8):
+            hex_data_block = data[block: block + 8]
+            bin_data_block = Utility.text2bin(hex_data_block)
+
+            round_result = DataEncryptionStandard.run_feistel_structure(bin_data_block, round_compute_unit, round_keys)
+
+            result = result + Utility.bin2text(round_result)
+        return result
+
+    @staticmethod
+    def run_hex_pipeline(data, round_keys):
+        result = ""
         round_compute_unit = DESRound()
         for block in range(0, len(data), 16):
             hex_data_block = data[block: block + 16]
             bin_data_block = Utility.hex2bin(hex_data_block)
 
-            bin_data_block = Utility.permute(bin_data_block, DataEncryptionStandard.INITIAL_PERMUTATION_TABLE)
+            round_result = DataEncryptionStandard.run_feistel_structure(bin_data_block, round_compute_unit, round_keys)
 
-            left_block = bin_data_block[:32]
-            right_block = bin_data_block[32:]
+            result = result + Utility.bin2hex(round_result)
+        return result
 
-            for round in range(16):
-                left_block, right_block = round_compute_unit.compute(left_block, right_block, round_keys[round])
+    @staticmethod
+    def run_feistel_structure(bin_data_block, round_compute_unit, round_keys):
+        bin_data_block = Utility.permute(bin_data_block, DataEncryptionStandard.INITIAL_PERMUTATION_TABLE)
 
-                # round terakhir tidak di swap
-                if round != 15:
-                    left_block, right_block = right_block, left_block
+        left_block = bin_data_block[:32]
+        right_block = bin_data_block[32:]
 
-            round_result = left_block + right_block
-            round_result = Utility.permute(round_result, DataEncryptionStandard.FINAL_PERMUTATION_TABLE)
+        for round in range(16):
+            left_block, right_block = round_compute_unit.compute(left_block, right_block, round_keys[round])
+            # round terakhir tidak di swap
+            if round != 15:
+                left_block, right_block = right_block, left_block
 
-            encrypted_result = encrypted_result + Utility.bin2hex(round_result)
-        return encrypted_result
+        round_result = left_block + right_block
+        round_result = Utility.permute(round_result, DataEncryptionStandard.FINAL_PERMUTATION_TABLE)
+
+        return round_result
