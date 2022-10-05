@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf9d8c86-e87d-4fff-a855-7c7e4d2322c6" name="Changes" comment="chore : cleanup">
-      <change afterPath="$PROJECT_DIR$/FeistelStructure.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataEncryptionStandard.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataEncryptionStandard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FeistelStructure.py" beforeDir="false" afterPath="$PROJECT_DIR$/FeistelStructure.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +82,7 @@
       <workItem from="1664958352374" duration="52000" />
       <workItem from="1664958407264" duration="12000" />
       <workItem from="1664958438196" duration="254000" />
-      <workItem from="1664958696585" duration="1003000" />
+      <workItem from="1664958696585" duration="1479000" />
     </task>
     <task id="LOCAL-00001" summary="chore : cleanup">
       <created>1664958576753</created>
@@ -113,6 +113,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="chore : cleanup" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Data_Encryption_Standard$main.coverage" NAME="main Coverage Results" MODIFIED="1664959350595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Data_Encryption_Standard$main.coverage" NAME="main Coverage Results" MODIFIED="1664960067135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

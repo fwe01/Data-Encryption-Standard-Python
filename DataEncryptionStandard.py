@@ -1,7 +1,6 @@
 import math
 
 from DESKey import DESKey
-from DESRound import DESRound
 from FeistelStructure import FeistelStructure
 from Utility import Utility
 
@@ -54,12 +53,11 @@ class DataEncryptionStandard:
     @staticmethod
     def compute_str_blocks(data, round_keys):
         result = ""
-        round_compute_unit = DESRound()
         for block in range(0, len(data), 8):
             hex_data_block = data[block: block + 8]
             bin_data_block = Utility.text2bin(hex_data_block)
 
-            round_result = FeistelStructure.compute(bin_data_block, round_compute_unit, round_keys)
+            round_result = FeistelStructure.compute(bin_data_block, round_keys)
 
             result = result + Utility.bin2text(round_result)
         return result
@@ -67,12 +65,11 @@ class DataEncryptionStandard:
     @staticmethod
     def compute_hex_blocks(data, round_keys):
         result = ""
-        round_compute_unit = DESRound()
         for block in range(0, len(data), 16):
             hex_data_block = data[block: block + 16]
             bin_data_block = Utility.hex2bin(hex_data_block)
 
-            round_result = FeistelStructure.compute(bin_data_block, round_compute_unit, round_keys)
+            round_result = FeistelStructure.compute(bin_data_block, round_keys)
 
             result = result + Utility.bin2hex(round_result)
         return result
