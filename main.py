@@ -16,10 +16,16 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    result = DataEncryptionStandard.encrypt("123456ABCD132536", "AABB09182736CCDD")
-    print(result)
+    # Randomized hex
+    plaintext = DESKey.generate_key()
+    key = DESKey.generate_key()
+    print("Plaintext : ", plaintext)
+    print("Key : ", key)
 
-    decrypt = DataEncryptionStandard.decrypt("C0B7A8D05F3A829C", "AABB09182736CCDD")
-    print(decrypt)
+    ciphertext = DataEncryptionStandard.encrypt(plaintext, key)
+    print("Ciphertext : ", ciphertext)
+
+    decrypted = DataEncryptionStandard.decrypt(ciphertext, key)
+    print("From decrypt process : ", decrypted)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
