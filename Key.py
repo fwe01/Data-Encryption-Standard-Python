@@ -3,7 +3,7 @@ import secrets
 from Utility import Utility
 
 
-class DESKey:
+class Key:
     KEY_SHIFT_TABLE = [
         1, 1, 2, 2,
         2, 2, 2, 2,

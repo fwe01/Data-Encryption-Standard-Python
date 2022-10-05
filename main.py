@@ -1,10 +1,10 @@
-from DESKey import DESKey
+from Key import Key
 from DataEncryptionStandard import DataEncryptionStandard
 
 if __name__ == '__main__':
     # Randomized hex
-    plaintext = DESKey.generate_key()
-    key = DESKey.generate_key()
+    plaintext = Key.generate_key()
+    key = Key.generate_key()
     print("Hex Plaintext : ", plaintext)
     print("Key : ", key)
 
@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     # string
     plaintext = "testings brow"
-    key = DESKey.generate_key()
+    key = Key.generate_key()
     print("String Plaintext : ", plaintext)
     print("Key : ", key)
 

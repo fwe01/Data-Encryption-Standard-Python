@@ -1,4 +1,4 @@
-from DESRound import DESRound
+from RoundComputeUnit import RoundComputeUnit
 from Utility import Utility
 
 
@@ -27,7 +27,7 @@ class FeistelStructure:
 
     @staticmethod
     def compute(bin_data_block, round_keys):
-        round_compute_unit = DESRound()
+        round_compute_unit = RoundComputeUnit()
 
         bin_data_block = Utility.permute(bin_data_block, FeistelStructure.INITIAL_PERMUTATION_TABLE)
 

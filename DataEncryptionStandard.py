@@ -1,6 +1,6 @@
 import math
 
-from DESKey import DESKey
+from Key import Key
 from FeistelStructure import FeistelStructure
 from Utility import Utility
 
@@ -8,7 +8,7 @@ from Utility import Utility
 class DataEncryptionStandard:
     @staticmethod
     def encrypt_hex(plain_data, hex_key):
-        key = DESKey(hex_key)
+        key = Key(hex_key)
         round_keys = key.compute_round_keys()
 
         # Padding
@@ -21,7 +21,7 @@ class DataEncryptionStandard:
 
     @staticmethod
     def decrypt_hex(encrypted_data, hex_key):
-        key = DESKey(hex_key)
+        key = Key(hex_key)
         round_keys = key.compute_round_keys()[::-1]
 
         decrypted_result = DataEncryptionStandard.compute_hex_blocks(encrypted_data, round_keys)
@@ -30,7 +30,7 @@ class DataEncryptionStandard:
 
     @staticmethod
     def encrypt_str(plain_data, hex_key):
-        key = DESKey(hex_key)
+        key = Key(hex_key)
         round_keys = key.compute_round_keys()
 
         # Padding
@@ -43,7 +43,7 @@ class DataEncryptionStandard:
 
     @staticmethod
     def decrypt_str(encrypted_data, hex_key):
-        key = DESKey(hex_key)
+        key = Key(hex_key)
         round_keys = key.compute_round_keys()[::-1]
 
         decrypted_result = DataEncryptionStandard.compute_str_blocks(encrypted_data, round_keys)
