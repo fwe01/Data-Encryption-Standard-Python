@@ -8,10 +8,8 @@ from Utility import Utility
 class DataEncryptionStandard:
     @staticmethod
     def encrypt_hex(plain_data, hex_key):
-        key = Key(hex_key)
-        round_keys = key.compute_round_keys()
+        round_keys = DataEncryptionStandard.compute_round_keys(hex_key)
 
-        # Padding
         padding = math.ceil(len(plain_data) / 16) * 16
         plain_data = plain_data.ljust(padding, "0")
 
@@ -21,19 +19,22 @@ class DataEncryptionStandard:
 
     @staticmethod
     def decrypt_hex(encrypted_data, hex_key):
-        key = Key(hex_key)
-        round_keys = key.compute_round_keys()[::-1]
+        round_keys = DataEncryptionStandard.compute_round_keys(hex_key)[::-1]
 
         decrypted_result = DataEncryptionStandard.compute_hex_blocks(encrypted_data, round_keys)
 
         return decrypted_result
 
     @staticmethod
-    def encrypt_str(plain_data, hex_key):
+    def compute_round_keys(hex_key):
         key = Key(hex_key)
         round_keys = key.compute_round_keys()
+        return round_keys
 
-        # Padding
+    @staticmethod
+    def encrypt_str(plain_data, hex_key):
+        round_keys = DataEncryptionStandard.compute_round_keys(hex_key)
+
         padding = math.ceil(len(plain_data) / 8) * 8
         plain_data = plain_data.ljust(padding, "0")
 
@@ -43,8 +44,7 @@ class DataEncryptionStandard:
 
     @staticmethod
     def decrypt_str(encrypted_data, hex_key):
-        key = Key(hex_key)
-        round_keys = key.compute_round_keys()[::-1]
+        round_keys = DataEncryptionStandard.compute_round_keys(hex_key)[::-1]
 
         decrypted_result = DataEncryptionStandard.compute_str_blocks(encrypted_data, round_keys)
 
