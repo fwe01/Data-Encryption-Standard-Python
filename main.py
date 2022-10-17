@@ -1,3 +1,5 @@
+import secrets
+
 from Key import Key
 from DataEncryptionStandard import DataEncryptionStandard
 
@@ -9,6 +11,18 @@ if __name__ == '__main__':
     print("Key : ", key)
 
     ciphertext = DataEncryptionStandard.encrypt_hex(plaintext, key)
+    print("Ciphertext : ", ciphertext)
+
+    decrypted = DataEncryptionStandard.decrypt_hex(ciphertext, key)
+    print("From decrypt process : ", decrypted)
+
+    # Randomized hex
+    plaintext2 = secrets.token_hex(10)
+    key = Key.generate_key()
+    print("Hex Plaintext : ", plaintext2)
+    print("Key : ", key)
+
+    ciphertext = DataEncryptionStandard.encrypt_hex(plaintext2, key)
     print("Ciphertext : ", ciphertext)
 
     decrypted = DataEncryptionStandard.decrypt_hex(ciphertext, key)
